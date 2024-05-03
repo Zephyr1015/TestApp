@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF05FD022BE27B22004786A2 /* AlbumModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF05FD002BE27B22004786A2 /* AlbumModel.xcdatamodeld */; };
 		BF3171612BD7D4F200829AC7 /* TestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3171602BD7D4F200829AC7 /* TestApp.swift */; };
 		BF3171632BD7D4F200829AC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3171622BD7D4F200829AC7 /* ContentView.swift */; };
-		BF3171652BD7D4F200829AC7 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3171642BD7D4F200829AC7 /* Item.swift */; };
 		BF3171672BD7D4F400829AC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF3171662BD7D4F400829AC7 /* Assets.xcassets */; };
 		BF31716A2BD7D4F400829AC7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF3171692BD7D4F400829AC7 /* Preview Assets.xcassets */; };
+		BF7AD6902BE4E7C800E42E46 /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AD68F2BE4E7C800E42E46 /* AlbumListView.swift */; };
+		BF7AD6922BE4E84200E42E46 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AD6912BE4E84200E42E46 /* AlbumDetailView.swift */; };
+		BF7DBB012BE0FD6F0009E149 /* AlbumDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DBB002BE0FD6F0009E149 /* AlbumDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF05FD012BE27B22004786A2 /* AlbumModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlbumModel.xcdatamodel; sourceTree = "<group>"; };
 		BF31715D2BD7D4F200829AC7 /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF3171602BD7D4F200829AC7 /* TestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestApp.swift; sourceTree = "<group>"; };
 		BF3171622BD7D4F200829AC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BF3171642BD7D4F200829AC7 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BF3171662BD7D4F400829AC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF3171692BD7D4F400829AC7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BF7AD68F2BE4E7C800E42E46 /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
+		BF7AD6912BE4E84200E42E46 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
+		BF7DBB002BE0FD6F0009E149 /* AlbumDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,11 +59,14 @@
 		BF31715F2BD7D4F200829AC7 /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				BF7DBAFF2BE0FA9E0009E149 /* Models */,
 				BF3171602BD7D4F200829AC7 /* TestApp.swift */,
 				BF3171622BD7D4F200829AC7 /* ContentView.swift */,
-				BF3171642BD7D4F200829AC7 /* Item.swift */,
 				BF3171662BD7D4F400829AC7 /* Assets.xcassets */,
 				BF3171682BD7D4F400829AC7 /* Preview Content */,
+				BF7DBB002BE0FD6F0009E149 /* AlbumDataManager.swift */,
+				BF7AD68F2BE4E7C800E42E46 /* AlbumListView.swift */,
+				BF7AD6912BE4E84200E42E46 /* AlbumDetailView.swift */,
 			);
 			path = TestApp;
 			sourceTree = "<group>";
@@ -68,6 +77,14 @@
 				BF3171692BD7D4F400829AC7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BF7DBAFF2BE0FA9E0009E149 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BF05FD002BE27B22004786A2 /* AlbumModel.xcdatamodeld */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,8 +158,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF3171632BD7D4F200829AC7 /* ContentView.swift in Sources */,
-				BF3171652BD7D4F200829AC7 /* Item.swift in Sources */,
+				BF7AD6922BE4E84200E42E46 /* AlbumDetailView.swift in Sources */,
 				BF3171612BD7D4F200829AC7 /* TestApp.swift in Sources */,
+				BF05FD022BE27B22004786A2 /* AlbumModel.xcdatamodeld in Sources */,
+				BF7DBB012BE0FD6F0009E149 /* AlbumDataManager.swift in Sources */,
+				BF7AD6902BE4E7C800E42E46 /* AlbumListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +366,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BF05FD002BE27B22004786A2 /* AlbumModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BF05FD012BE27B22004786A2 /* AlbumModel.xcdatamodel */,
+			);
+			currentVersion = BF05FD012BE27B22004786A2 /* AlbumModel.xcdatamodel */;
+			name = AlbumModel.xcdatamodeld;
+			path = /Users/vincent/Library/CloudStorage/Dropbox/Programming/SwiftUI/TestApp/TestApp/Models/AlbumModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BF3171552BD7D4F200829AC7 /* Project object */;
 }
