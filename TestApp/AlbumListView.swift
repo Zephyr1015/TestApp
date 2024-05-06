@@ -34,7 +34,7 @@ struct AlbumListView: View {
                 }
                 .onDelete(perform: deleteAlbum)
             }
-            .navigationBarTitle("Albums")
+//            .navigationBarTitle("Albums")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
