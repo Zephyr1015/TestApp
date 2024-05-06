@@ -21,6 +21,10 @@
 		BF8AF5442BE8BC610024FBCA /* Album+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5402BE8BC610024FBCA /* Album+CoreDataProperties.swift */; };
 		BF8AF5462BE8D1670024FBCA /* GenreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5452BE8D1670024FBCA /* GenreListView.swift */; };
 		BF8AF5482BE8DA9A0024FBCA /* GenreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5472BE8DA9A0024FBCA /* GenreDetailView.swift */; };
+		BF8AF54A2BE8F2C30024FBCA /* AddAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5492BE8F2C30024FBCA /* AddAlbumView.swift */; };
+		BF8AF54C2BE8F34B0024FBCA /* EditAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF54B2BE8F34B0024FBCA /* EditAlbumView.swift */; };
+		BF8AF54E2BE8F3570024FBCA /* GenreSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF54D2BE8F3570024FBCA /* GenreSelectionView.swift */; };
+		BF8AF5502BE8F3630024FBCA /* AddGenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF54F2BE8F3630024FBCA /* AddGenreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,10 @@
 		BF8AF5402BE8BC610024FBCA /* Album+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Album+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BF8AF5452BE8D1670024FBCA /* GenreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreListView.swift; sourceTree = "<group>"; };
 		BF8AF5472BE8DA9A0024FBCA /* GenreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDetailView.swift; sourceTree = "<group>"; };
+		BF8AF5492BE8F2C30024FBCA /* AddAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlbumView.swift; sourceTree = "<group>"; };
+		BF8AF54B2BE8F34B0024FBCA /* EditAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlbumView.swift; sourceTree = "<group>"; };
+		BF8AF54D2BE8F3570024FBCA /* GenreSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSelectionView.swift; sourceTree = "<group>"; };
+		BF8AF54F2BE8F3630024FBCA /* AddGenreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGenreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,12 +82,16 @@
 				BF7DBAFF2BE0FA9E0009E149 /* Models */,
 				BF3171602BD7D4F200829AC7 /* TestApp.swift */,
 				BF3171622BD7D4F200829AC7 /* ContentView.swift */,
+				BF7DBB002BE0FD6F0009E149 /* AlbumDataManager.swift */,
 				BF3171662BD7D4F400829AC7 /* Assets.xcassets */,
 				BF3171682BD7D4F400829AC7 /* Preview Content */,
-				BF7DBB002BE0FD6F0009E149 /* AlbumDataManager.swift */,
 				BF7AD68F2BE4E7C800E42E46 /* AlbumListView.swift */,
+				BF8AF5492BE8F2C30024FBCA /* AddAlbumView.swift */,
 				BF7AD6912BE4E84200E42E46 /* AlbumDetailView.swift */,
+				BF8AF54B2BE8F34B0024FBCA /* EditAlbumView.swift */,
+				BF8AF54D2BE8F3570024FBCA /* GenreSelectionView.swift */,
 				BF8AF5452BE8D1670024FBCA /* GenreListView.swift */,
+				BF8AF54F2BE8F3630024FBCA /* AddGenreView.swift */,
 				BF8AF5472BE8DA9A0024FBCA /* GenreDetailView.swift */,
 			);
 			path = TestApp;
@@ -177,16 +189,20 @@
 			files = (
 				BF3171632BD7D4F200829AC7 /* ContentView.swift in Sources */,
 				BF8AF5412BE8BC610024FBCA /* Genre+CoreDataClass.swift in Sources */,
+				BF8AF5502BE8F3630024FBCA /* AddGenreView.swift in Sources */,
 				BF8AF5422BE8BC610024FBCA /* Genre+CoreDataProperties.swift in Sources */,
 				BF8AF5482BE8DA9A0024FBCA /* GenreDetailView.swift in Sources */,
 				BF8AF5432BE8BC610024FBCA /* Album+CoreDataClass.swift in Sources */,
 				BF8AF5442BE8BC610024FBCA /* Album+CoreDataProperties.swift in Sources */,
 				BF7AD6922BE4E84200E42E46 /* AlbumDetailView.swift in Sources */,
 				BF3171612BD7D4F200829AC7 /* TestApp.swift in Sources */,
+				BF8AF54A2BE8F2C30024FBCA /* AddAlbumView.swift in Sources */,
 				BF05FD022BE27B22004786A2 /* AlbumModel.xcdatamodeld in Sources */,
+				BF8AF54C2BE8F34B0024FBCA /* EditAlbumView.swift in Sources */,
 				BF7DBB012BE0FD6F0009E149 /* AlbumDataManager.swift in Sources */,
 				BF7AD6902BE4E7C800E42E46 /* AlbumListView.swift in Sources */,
 				BF8AF5462BE8D1670024FBCA /* GenreListView.swift in Sources */,
+				BF8AF54E2BE8F3570024FBCA /* GenreSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

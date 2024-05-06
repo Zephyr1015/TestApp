@@ -14,11 +14,18 @@ struct GenreDetailView: View {
     
     private var genre: Genre
     @State private var name: String
-//    @State private var updatedName = ""
+    
+    @FetchRequest private var albums: FetchedResults<Album>
     
     init(genre: Genre) {
         self.genre = genre
         self.name = genre.name ?? ""
+        
+        self._albums = FetchRequest<Album>(
+            entity: Album.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \Album.title, ascending: true)],
+            predicate: NSPredicate(format: "ANY genres == %@", genre)
+        )
     }
     
     var body: some View {
@@ -26,6 +33,18 @@ struct GenreDetailView: View {
             Text(genre.name ?? "")
                 .font(.title)
                 .fontDesign(.rounded)
+            
+            if !albums.isEmpty {
+                Text("Albums:")
+                    .font(.headline)
+                
+                ForEach(albums) { album in
+                    Text(album.title ?? "")
+                }
+            } else {
+                Text("No albums found for this genre.")
+                    .foregroundColor(.secondary)
+            }
         }
         .navigationBarItems(trailing: Button("Edit") {
             isEditingGenre = true
