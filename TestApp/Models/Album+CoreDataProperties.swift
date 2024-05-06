@@ -2,7 +2,7 @@
 //  Album+CoreDataProperties.swift
 //  TestApp
 //
-//  Created by Vincent on 2024/05/04.
+//  Created by Vincent on 2024/05/06.
 //
 //
 
@@ -21,6 +21,8 @@ extension Album {
     @NSManaged public var title: String?
     @NSManaged public var tracks: NSObject?
     @NSManaged public var year: String?
+    @NSManaged public var createdAt: Date?
+    @NSManaged public var updatedAt: Date?
     @NSManaged public var genres: NSSet?
 
 }

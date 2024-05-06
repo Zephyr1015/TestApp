@@ -69,6 +69,9 @@ struct EditAlbumView: View {
     @State private var year: String
     @State private var coverImageURL: String
     
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     init(album: Album) {
         self.album = album
         self.title = album.title ?? ""
@@ -84,6 +87,7 @@ struct EditAlbumView: View {
                     TextField("Title", text: $title)
                     TextField("Artist", text: $artist)
                     TextField("Year", text: $year)
+                        .keyboardType(.numberPad)
                     TextField("Cover Image URL", text: $coverImageURL)
                 }
             }
@@ -91,10 +95,24 @@ struct EditAlbumView: View {
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Save") {
-                saveAlbum()
-                presentationMode.wrappedValue.dismiss()
+                if isYearValid() {
+                    saveAlbum()
+                    presentationMode.wrappedValue.dismiss()
+                } else {
+                    showAlert = true
+                    alertMessage = "Please enter a valid 4-digit year."
+                }
             })
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Invalid Year"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
         }
+    }
+    
+    private func isYearValid() -> Bool {
+        let yearRegex = "^\\d{4}$"
+        let yearPredicate = NSPredicate(format: "SELF MATCHES %@", yearRegex)
+        return yearPredicate.evaluate(with: year)
     }
     
     private func saveAlbum() {
@@ -102,6 +120,7 @@ struct EditAlbumView: View {
         album.artist = artist
         album.year = year
         album.coverImageURL = coverImageURL
+        album.updatedAt = Date()
         
         try? viewContext.save()
     }

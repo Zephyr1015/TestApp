@@ -3,8 +3,10 @@
     <entity name="Album" representedClassName="Album" syncable="YES">
         <attribute name="artist" attributeType="String"/>
         <attribute name="coverImageURL" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="tracks" optional="YES" attributeType="Transformable"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="year" attributeType="String"/>
         <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Genre" inverseName="albums" inverseEntity="Genre"/>
     </entity>

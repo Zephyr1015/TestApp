@@ -2,7 +2,7 @@
 //  Genre+CoreDataProperties.swift
 //  TestApp
 //
-//  Created by Vincent on 2024/05/04.
+//  Created by Vincent on 2024/05/06.
 //
 //
 
