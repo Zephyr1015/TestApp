@@ -9,14 +9,22 @@ import SwiftUI
 import CoreData
 
 struct AlbumDetailView: View {
-    @StateObject var album: Album
+    @Environment(\.managedObjectContext) private var viewContext
     @State private var isEditingAlbum = false
     
-//    var yearFormatter: NumberFormatter {
-//        let formatter = NumberFormatter()
-//        formatter.numberStyle = .none
-//        return formatter
-//    }
+    private var album: Album
+    @State private var title: String
+    @State private var artist: String
+    @State private var year: String
+    @State private var coverImageURL: String
+    
+    init(album: Album) {
+        self.album = album
+        self.title = album.title ?? ""
+        self.artist = album.artist ?? ""
+        self.coverImageURL = album.coverImageURL ?? ""
+        self.year = album.year ?? ""
+    }
     
     var body: some View {
         VStack {
@@ -37,10 +45,8 @@ struct AlbumDetailView: View {
             
             Text(album.title ?? "")
                 .font(.title)
-            
             Text(album.artist ?? "")
                 .font(.subheadline)
-            
             Text(album.year ?? "")
                 .font(.subheadline)
         }
@@ -49,62 +55,58 @@ struct AlbumDetailView: View {
         })
         .sheet(isPresented: $isEditingAlbum) {
             EditAlbumView(album: album)
-//            EditAlbumView()
         }
     }
 }
 
 struct EditAlbumView: View {
-    @StateObject private var albumDataManager = AlbumDataManager.shared
-    @ObservedObject var album: Album
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
+    
+    private var album: Album
+    @State private var title: String
+    @State private var artist: String
+    @State private var year: String
+    @State private var coverImageURL: String
+    
+    init(album: Album) {
+        self.album = album
+        self.title = album.title ?? ""
+        self.artist = album.artist ?? ""
+        self.coverImageURL = album.coverImageURL ?? ""
+        self.year = album.year ?? ""
+    }
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Album Details")) {
-                    TextField("Title", text: Binding(
-                        get: { album.title ?? "" },
-                        set: { album.title = $0.isEmpty ? nil : $0 }
-                    ))
-                    TextField("Artist", text: Binding(
-                        get: { album.artist ?? "" },
-                        set: { album.artist = $0.isEmpty ? nil : $0 }
-                    ))
-                    TextField("Year", text: Binding(
-                        get: { album.year ?? "" },
-                        set: { album.year = $0.isEmpty ? nil : $0 }
-                    ))
-                    TextField("Cover Image URL", text: Binding(
-                        get: { album.coverImageURL ?? "" },
-                        set: { album.coverImageURL = $0.isEmpty ? nil : $0 }
-                    ))
+                    TextField("Title", text: $title)
+                    TextField("Artist", text: $artist)
+                    TextField("Year", text: $year)
+                    TextField("Cover Image URL", text: $coverImageURL)
                 }
             }
             .navigationBarTitle("Edit Album")
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Save") {
-                albumDataManager.saveAlbum(album)
+                saveAlbum()
                 presentationMode.wrappedValue.dismiss()
             })
         }
+    }
+    
+    private func saveAlbum() {
+        album.title = title
+        album.artist = artist
+        album.year = year
+        album.coverImageURL = coverImageURL
+        
+        try? viewContext.save()
     }
 }
 
 //#Preview {
 //    AlbumDetailView()
-//}
-
-//struct AlbumDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewContext = PersistenceController.preview.container.viewContext
-//        let sampleAlbum = Album(context: viewContext)
-//        sampleAlbum.title = "Sample Album"
-//        sampleAlbum.artist = "Sample Artist"
-//        sampleAlbum.year = 2023
-//        sampleAlbum.coverImageURL = "https://example.com/sample-cover.jpg"
-//        
-//        return AlbumDetailView(album: sampleAlbum)
-//    }
 //}

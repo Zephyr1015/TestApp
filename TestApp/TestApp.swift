@@ -10,10 +10,12 @@ import CoreData
 
 @main
 struct TestApp: App {
+    let albumDataManager = AlbumDataManager.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, albumDataManager.container.viewContext)
         }
     }
 }

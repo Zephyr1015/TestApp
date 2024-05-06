@@ -9,13 +9,20 @@ import SwiftUI
 import CoreData
 
 struct AlbumListView: View {
-    @StateObject private var albumDataManager = AlbumDataManager.shared
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        entity: Album.entity(),
+        sortDescriptors: [NSSortDescriptor(key: "title", ascending: false)],
+        animation: .default
+    ) var fetchedAlbumList: FetchedResults<Album>
+    
+    
     @State private var isAddingAlbum = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(albumDataManager.albums) { album in
+                ForEach(fetchedAlbumList) { album in
                     NavigationLink(destination: AlbumDetailView(album: album)) {
                         VStack(alignment: .leading) {
                             Text(album.title ?? "")
@@ -25,7 +32,7 @@ struct AlbumListView: View {
                         }
                     }
                 }
-                .onDelete(perform: deleteAlbums)
+                .onDelete(perform: deleteAlbum)
             }
             .navigationBarTitle("Albums")
             .navigationBarItems(trailing: Button(action: {
@@ -36,20 +43,19 @@ struct AlbumListView: View {
             .sheet(isPresented: $isAddingAlbum) {
                 AddAlbumView(isPresented: $isAddingAlbum)
             }
-            .onAppear {
-                albumDataManager.albums = albumDataManager.getAllAlbums()
-            }
         }
     }
     
-    private func deleteAlbums(offsets: IndexSet) {
-        offsets.map { albumDataManager.albums[$0] }.forEach(albumDataManager.deleteAlbum)
-        albumDataManager.albums = albumDataManager.getAllAlbums()
+    private func deleteAlbum(offsets: IndexSet) {
+        offsets.forEach { index in
+            viewContext.delete(fetchedAlbumList[index])
+        }
+        try? viewContext.save()
     }
 }
 
 struct AddAlbumView: View {
-    @StateObject private var albumDataManager = AlbumDataManager.shared
+    @Environment(\.managedObjectContext) private var viewContext
     @Binding var isPresented: Bool
     
     @State private var title = ""
@@ -77,14 +83,14 @@ struct AddAlbumView: View {
     }
     
     private func addAlbum() {
-        let newAlbum = Album(context: albumDataManager.persistentContainer.viewContext)
+        let newAlbum = Album(context: viewContext)
         newAlbum.title = title
         newAlbum.artist = artist
         newAlbum.year = year
         newAlbum.coverImageURL = coverImageURL
         
-        albumDataManager.saveAlbum(newAlbum)
-        albumDataManager.albums = albumDataManager.getAllAlbums() //
+        try? viewContext.save()
+        
         isPresented = false
     }
 }

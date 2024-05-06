@@ -15,6 +15,10 @@
 		BF7AD6902BE4E7C800E42E46 /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AD68F2BE4E7C800E42E46 /* AlbumListView.swift */; };
 		BF7AD6922BE4E84200E42E46 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AD6912BE4E84200E42E46 /* AlbumDetailView.swift */; };
 		BF7DBB012BE0FD6F0009E149 /* AlbumDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7DBB002BE0FD6F0009E149 /* AlbumDataManager.swift */; };
+		BF8AF5392BE649A10024FBCA /* Album+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5352BE649A10024FBCA /* Album+CoreDataClass.swift */; };
+		BF8AF53A2BE649A10024FBCA /* Album+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5362BE649A10024FBCA /* Album+CoreDataProperties.swift */; };
+		BF8AF53B2BE649A10024FBCA /* Genre+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5372BE649A10024FBCA /* Genre+CoreDataClass.swift */; };
+		BF8AF53C2BE649A10024FBCA /* Genre+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF5382BE649A10024FBCA /* Genre+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		BF7AD68F2BE4E7C800E42E46 /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
 		BF7AD6912BE4E84200E42E46 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		BF7DBB002BE0FD6F0009E149 /* AlbumDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDataManager.swift; sourceTree = "<group>"; };
+		BF8AF5352BE649A10024FBCA /* Album+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Album+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BF8AF5362BE649A10024FBCA /* Album+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Album+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BF8AF5372BE649A10024FBCA /* Genre+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Genre+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BF8AF5382BE649A10024FBCA /* Genre+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Genre+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,10 @@
 			isa = PBXGroup;
 			children = (
 				BF05FD002BE27B22004786A2 /* AlbumModel.xcdatamodeld */,
+				BF8AF5352BE649A10024FBCA /* Album+CoreDataClass.swift */,
+				BF8AF5362BE649A10024FBCA /* Album+CoreDataProperties.swift */,
+				BF8AF5372BE649A10024FBCA /* Genre+CoreDataClass.swift */,
+				BF8AF5382BE649A10024FBCA /* Genre+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +175,10 @@
 				BF05FD022BE27B22004786A2 /* AlbumModel.xcdatamodeld in Sources */,
 				BF7DBB012BE0FD6F0009E149 /* AlbumDataManager.swift in Sources */,
 				BF7AD6902BE4E7C800E42E46 /* AlbumListView.swift in Sources */,
+				BF8AF5392BE649A10024FBCA /* Album+CoreDataClass.swift in Sources */,
+				BF8AF53A2BE649A10024FBCA /* Album+CoreDataProperties.swift in Sources */,
+				BF8AF53B2BE649A10024FBCA /* Genre+CoreDataClass.swift in Sources */,
+				BF8AF53C2BE649A10024FBCA /* Genre+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

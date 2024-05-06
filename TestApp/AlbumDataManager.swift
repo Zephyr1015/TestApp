@@ -10,93 +10,30 @@ import CoreData
 
 class AlbumDataManager: ObservableObject {
     static let shared = AlbumDataManager()
-    let persistentContainer: NSPersistentContainer
+    let container: NSPersistentContainer
     
-    @Published var albums: [Album] = []
-    
-    init() {
-        persistentContainer = NSPersistentContainer(name: "AlbumModel")
-        persistentContainer.loadPersistentStores { (storeDescription, error) in
+    init(inMemory: Bool = false) {
+        container = NSPersistentContainer(name: "AlbumModel")
+        if inMemory {
+            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        }
-        albums = getAllAlbums()
-    }
-    
-    func saveAlbum(_ album: Album) {
-        let context = persistentContainer.viewContext
-        context.perform {
-            context.insert(album)
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
-    func deleteAlbum(_ album: Album) {
-        let context = persistentContainer.viewContext
-        context.perform {
-            context.delete(album)
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
-    func getAllAlbums() -> [Album] {
-        let context = persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Album> = Album.fetchRequest()
-        
-        do {
-            return try context.fetch(fetchRequest)
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-    }
-    
-    func saveGenre(_ genre: Genre) {
-        let context = persistentContainer.viewContext
-        context.perform {
-            context.insert(genre)
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
-    func deleteGenre(_ genre: Genre) {
-        let context = persistentContainer.viewContext
-        context.perform {
-            context.delete(genre)
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
-    func getAllGenres() -> [Genre] {
-        let context = persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Genre> = Genre.fetchRequest()
-        do {
-            return try context.fetch(fetchRequest)
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
+        })
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
 }
 
