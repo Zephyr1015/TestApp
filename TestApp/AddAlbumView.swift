@@ -19,6 +19,12 @@ struct AddAlbumView: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
     
+    @State private var selectedGenres: Set<Genre> = []
+    @FetchRequest(entity: Genre.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Genre.name, ascending: true)])
+    private var genres: FetchedResults<Genre>
+    
+    @State private var showGenreSelection = false
+    
     var body: some View {
         NavigationView {
             Form {
@@ -28,6 +34,17 @@ struct AddAlbumView: View {
                     TextField("Year", text: $year)
                         .keyboardType(.numberPad)
                     TextField("Cover Image URL", text: $coverImageURL)
+                }
+                
+                Section(header: Text("Genres")) {
+                    Button(action: {
+                        showGenreSelection = true
+                    }) {
+                        Text("Select Genres")
+                    }
+                    .sheet(isPresented: $showGenreSelection) {
+                        GenreSelectionViewInAddView(selectedGenres: $selectedGenres)
+                    }
                 }
             }
             .navigationBarTitle("Add Album")
@@ -62,9 +79,67 @@ struct AddAlbumView: View {
         newAlbum.createdAt = Date()
         newAlbum.updatedAt = Date()
         
+        for genre in selectedGenres {
+            newAlbum.addToGenres(genre)
+        }
+        
         try? viewContext.save()
         
         isPresented = false
+    }
+}
+
+struct GenreSelectionViewInAddView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) private var presentationMode
+    
+    @FetchRequest(entity: Genre.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Genre.name, ascending: true)])
+    private var genres: FetchedResults<Genre>
+    
+    @Binding var selectedGenres: Set<Genre>
+    
+    @State private var isShowingAddGenreView = false
+    
+    var body: some View {
+        NavigationView {
+            List(genres) { genre in
+                Button(action: {
+                    toggleGenreSelection(genre)
+                }) {
+                    HStack {
+                        Text(genre.name ?? "")
+                        Spacer()
+                        if selectedGenres.contains(genre) {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("Select Genres")
+            .navigationBarItems(trailing:
+                HStack {
+                    Button("Save") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    Button(action: {
+                        isShowingAddGenreView = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            )
+        }
+        .sheet(isPresented: $isShowingAddGenreView) {
+            AddGenreView(isPresented: $isShowingAddGenreView)
+        }
+    }
+    
+    private func toggleGenreSelection(_ genre: Genre) {
+        if selectedGenres.contains(genre) {
+            selectedGenres.remove(genre)
+        } else {
+            selectedGenres.insert(genre)
+        }
     }
 }
 

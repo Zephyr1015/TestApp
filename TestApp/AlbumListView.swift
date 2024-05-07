@@ -95,18 +95,23 @@ struct AlbumListView: View {
     }
     
     private func convertToCSV(albums: [Album]) -> String {
-        let headerRow = "title,artist,year,createdAt\n"
+        let headerRow = "title,artist,year,genres,createdAt\n"
+        
         let rows = albums.map { album in
             let title = album.title ?? ""
             let artist = album.artist ?? ""
             let year = album.year ?? ""
+            
+            let genres = album.genres?.compactMap { ($0 as? Genre)?.name }.joined(separator: ", ") ?? ""
+            
             if let createdAt = album.createdAt {
                 let formattedDate = createdAt.formatted(date: .numeric, time: .omitted)
-                return "\"\(title)\",\"\(artist)\",\"\(year)\",\"\(formattedDate)\""
+                return "\"\(title)\",\"\(artist)\",\"\(year)\",\"\(genres)\",\"\(formattedDate)\"" // \"\(content)\"
             } else {
-                return "\"\(title)\",\"\(artist)\",\"\(year)\",\"\""
+                return "\"\(title)\",\"\(artist)\",\"\(year)\",\"\(genres)\",\"\""
             }
         }
+        
         return headerRow + rows.joined(separator: "\n")
     }
     

@@ -13,6 +13,7 @@ struct GenreSelectionView: View {
     private var genres: FetchedResults<Genre>
     
     @Environment(\.presentationMode) var presentationMode
+    @State private var isShowingAddGenreView = false
     
     private var album: Album
     init(album: Album) {
@@ -27,7 +28,7 @@ struct GenreSelectionView: View {
                 }) {
                     HStack {
                         Text(genre.name ?? "")
-                        
+                        Spacer()
                         if isGenreSelected(genre) {
                             Image(systemName: "checkmark")
                         }
@@ -35,9 +36,21 @@ struct GenreSelectionView: View {
                 }
             }
             .navigationBarTitle("Genres")
-            .navigationBarItems(trailing: Button("Save")  {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(trailing:
+                HStack {
+                    Button("Save") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    Button(action: {
+                        isShowingAddGenreView = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            )
+        }
+        .sheet(isPresented: $isShowingAddGenreView) {
+            AddGenreView(isPresented: $isShowingAddGenreView)
         }
     }
     

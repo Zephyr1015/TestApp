@@ -79,6 +79,7 @@
 		BF31715F2BD7D4F200829AC7 /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				BF90A16C2BEA409C00156D93 /* Tools */,
 				BF7DBAFF2BE0FA9E0009E149 /* Models */,
 				BF3171602BD7D4F200829AC7 /* TestApp.swift */,
 				BF3171622BD7D4F200829AC7 /* ContentView.swift */,
@@ -115,6 +116,13 @@
 				BF8AF53E2BE8BC610024FBCA /* Genre+CoreDataProperties.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BF90A16C2BEA409C00156D93 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
