@@ -15,14 +15,12 @@ struct AlbumDetailView: View {
     
     @ObservedObject private var album: Album
     @State private var title: String
-    @State private var artist: String
     @State private var year: String
     @State private var coverImageURL: String
     
     init(album: Album) {
         self.album = album
         self.title = album.title ?? ""
-        self.artist = album.artist ?? ""
         self.coverImageURL = album.coverImageURL ?? ""
         self.year = album.year ?? ""
     }
@@ -46,8 +44,12 @@ struct AlbumDetailView: View {
             
             Text(album.title ?? "")
                 .font(.title)
-            Text(album.artist ?? "")
-                .font(.subheadline)
+            if let artists = album.artists as? Set<Artist> {
+                ForEach(artists.sorted(by: { $0.name ?? "" < $1.name ?? "" })) { artist in
+                    Text(artist.name ?? "")
+                        .font(.subheadline)
+                }
+            }
             Text(album.year ?? "")
                 .font(.subheadline)
             if let genres = album.genres as? Set<Genre> {

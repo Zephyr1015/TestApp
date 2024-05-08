@@ -12,18 +12,22 @@ struct EditAlbumView: View {
     @Environment(\.presentationMode) var presentationMode
     
     private var album: Album
+    
     @State private var title: String
-    @State private var artist: String
     @State private var year: String
     @State private var coverImageURL: String
     
     @State private var showAlert = false
     @State private var alertMessage = ""
     
+//    @State private var selectedArtist: Set<Artist> = []
+    @State private var showArtistSelection = false
+    @FetchRequest(entity: Artist.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Artist.name, ascending: true)])
+    private var artists: FetchedResults<Artist>
+    
     init(album: Album) {
         self.album = album
         self.title = album.title ?? ""
-        self.artist = album.artist ?? ""
         self.coverImageURL = album.coverImageURL ?? ""
         self.year = album.year ?? ""
     }
@@ -31,9 +35,19 @@ struct EditAlbumView: View {
     var body: some View {
         NavigationView {
             Form {
+                Section(header: Text("Artist")) {
+                    Button(action: {
+                        showArtistSelection = true
+                    }) {
+                        Text("Select Artist")
+                    }
+                    .sheet(isPresented: $showArtistSelection) {
+                        ArtistSelectionView(album: album)
+                    }
+                }
+                
                 Section(header: Text("Album Details")) {
                     TextField("Title", text: $title)
-                    TextField("Artist", text: $artist)
                     TextField("Year", text: $year)
                         .keyboardType(.numberPad)
                     TextField("Cover Image URL", text: $coverImageURL)
@@ -65,7 +79,6 @@ struct EditAlbumView: View {
     
     private func saveAlbum() {
         album.title = title
-        album.artist = artist
         album.year = year
         album.coverImageURL = coverImageURL
         album.updatedAt = Date()

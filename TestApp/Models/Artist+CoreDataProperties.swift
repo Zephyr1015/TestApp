@@ -1,5 +1,5 @@
 //
-//  Genre+CoreDataProperties.swift
+//  Artist+CoreDataProperties.swift
 //  TestApp
 //
 //  Created by Vincent on 2024/05/07.
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Genre {
+extension Artist {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Genre> {
-        return NSFetchRequest<Genre>(entityName: "Genre")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Artist> {
+        return NSFetchRequest<Artist>(entityName: "Artist")
     }
 
     @NSManaged public var name: String?
@@ -22,7 +22,7 @@ extension Genre {
 }
 
 // MARK: Generated accessors for albums
-extension Genre {
+extension Artist {
 
     @objc(addAlbumsObject:)
     @NSManaged public func addToAlbums(_ value: Album)
@@ -38,6 +38,6 @@ extension Genre {
 
 }
 
-extension Genre : Identifiable {
+extension Artist : Identifiable {
 
 }

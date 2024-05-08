@@ -12,25 +12,34 @@ struct AddAlbumView: View {
     @Binding var isPresented: Bool
     
     @State private var title = ""
-    @State private var artist = ""
     @State private var year = ""
     @State private var coverImageURL = ""
     
     @State private var showAlert = false
     @State private var alertMessage = ""
     
-    @State private var selectedGenres: Set<Genre> = []
-    @FetchRequest(entity: Genre.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Genre.name, ascending: true)])
-    private var genres: FetchedResults<Genre>
+    @State private var selectedArtist: Set<Artist> = []
+    @State private var showArtistSelection = false
     
+    @State private var selectedGenres: Set<Genre> = []
     @State private var showGenreSelection = false
     
     var body: some View {
         NavigationView {
             Form {
+                Section(header: Text("Artist")) {
+                    Button(action: {
+                        showArtistSelection = true
+                    }) {
+                        Text("Select Artist")
+                    }
+                    .sheet(isPresented: $showArtistSelection) {
+                        ArtistSelectionViewInAddView(selectedArtist: $selectedArtist)
+                    }
+                }
+                
                 Section(header: Text("Album Details")) {
                     TextField("Title", text: $title)
-                    TextField("Artist", text: $artist)
                     TextField("Year", text: $year)
                         .keyboardType(.numberPad)
                     TextField("Cover Image URL", text: $coverImageURL)
@@ -73,7 +82,6 @@ struct AddAlbumView: View {
     private func addAlbum() {
         let newAlbum = Album(context: viewContext)
         newAlbum.title = title
-        newAlbum.artist = artist
         newAlbum.year = year
         newAlbum.coverImageURL = coverImageURL
         newAlbum.createdAt = Date()
@@ -83,9 +91,67 @@ struct AddAlbumView: View {
             newAlbum.addToGenres(genre)
         }
         
+        for artist in selectedArtist {
+            newAlbum.addToArtists(artist)
+        }
+        
         try? viewContext.save()
         
         isPresented = false
+    }
+}
+
+struct ArtistSelectionViewInAddView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) private var presentationMode
+    
+    @FetchRequest(entity: Artist.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Artist.name, ascending: true)])
+    private var artists: FetchedResults<Artist>
+    
+    @Binding var selectedArtist: Set<Artist>
+    
+    @State private var isShowingAddArtistView = false
+    
+    var body: some View {
+        NavigationView {
+            List(artists) { artist in
+                Button(action: {
+                    toggleArtistSelection(artist)
+                }) {
+                    HStack {
+                        Text(artist.name ?? "")
+                        Spacer()
+                        if selectedArtist.contains(artist) {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("Select Artist")
+            .navigationBarItems(trailing:
+                HStack {
+                    Button("Save") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    Button(action: {
+                        isShowingAddArtistView = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            )
+        }
+        .sheet(isPresented: $isShowingAddArtistView) {
+            AddArtistView(isPresented: $isShowingAddArtistView)
+        }
+    }
+    
+    private func toggleArtistSelection(_ artist: Artist) {
+        if selectedArtist.contains(artist) {
+            selectedArtist.remove(artist)
+        } else {
+            selectedArtist.insert(artist)
+        }
     }
 }
 

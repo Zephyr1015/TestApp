@@ -17,13 +17,20 @@ struct ContentView: View {
                 Picker("Select View", selection: $selectedView) {
                     Text("Albums").tag(0)
                     Text("Genres").tag(1)
+                    Text("Artists").tag(2)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                
-                if selectedView == 0 {
+                .padding()
+
+                switch selectedView {
+                case 0:
                     AlbumListView()
-                } else {
+                case 1:
                     GenreListView()
+                case 2:
+                    ArtistListView()
+                default:
+                    AlbumListView()
                 }
             }
             .navigationBarTitle("Music Library")

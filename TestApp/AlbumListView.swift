@@ -27,8 +27,12 @@ struct AlbumListView: View {
                         VStack(alignment: .leading) {
                             Text(album.title ?? "")
                                 .font(.headline)
-                            Text(album.artist ?? "")
-                                .font(.subheadline)
+                            if let artists = album.artists as? Set<Artist> {
+                                ForEach(artists.sorted(by: { $0.name ?? "" < $1.name ?? "" })) { artist in
+                                    Text(artist.name ?? "")
+                                        .font(.subheadline)
+                                }
+                            }
                         }
                     }
                 }
@@ -99,7 +103,7 @@ struct AlbumListView: View {
         
         let rows = albums.map { album in
             let title = album.title ?? ""
-            let artist = album.artist ?? ""
+            let artist = album.artists?.compactMap { ($0 as? Artist)?.name }.joined(separator: ", ") ?? ""
             let year = album.year ?? ""
             
             let genres = album.genres?.compactMap { ($0 as? Genre)?.name }.joined(separator: ", ") ?? ""
